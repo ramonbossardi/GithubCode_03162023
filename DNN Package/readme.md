@@ -1,5 +1,5 @@
 Step 1:
-Install the DNN package by acknowledging that any use requires permission by Dr. Mark J. Embrechts (mark.embrechts@gmail.com). Using BBBackProp itself is free, provided the use of the package is acknowledged in any publication containing results obtained by BBBackProp.  The installation is self-explanatory by following the steps involved
+Install the DNN package by acknowledging that any use requires permission by Dr. Mark J. Embrechts (mark.embrechts@gmail.com). Using BBBackProp itself is free, provided the use of the package is acknowledged in any publication containing results obtained by BBBackProp.  The installation is self-explanatory by following the steps involved. Email to Dr. Embrechts to have the .exe file
 
 Step 2:
 Open an MS DOS (Command Prompt) window and create in the root directory the following file "cc.bat".  The content of this file is the one liner: cd c:\DNN.  Create a folder in the c:\DNN using the File Exporer.  Any results and datafiles appear in this folder.
