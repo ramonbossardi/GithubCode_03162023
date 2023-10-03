@@ -277,6 +277,7 @@ def parameter_import():
                     pattern = r"cell(\d+)"
                     cell_num = re.search(pattern, file.folder.name).group(1)
                 except:
+
                     cell_num = int(re.search(r'Cell_(\d+)', file.folder.name).group(1))
 
                 # Determine if appropriate DAPI is presented in different ways
@@ -294,7 +295,7 @@ def parameter_import():
 
                 # Access the second item in the inner list (row 1, column 0)
                 second_item = surfdist_IDdata[1, 0]
-              
+                print(second_item)
               
                 # Import appropriate data
                 if surfdist_string1 in second_item or surfdist_string2 in second_item or surfdist_string3 in second_item or surfdist_string4 in second_item or surfdist_string5 in second_item or surfdist_string6 in second_item or surfdist_string7 in second_item or surfdist_string8 in second_item or surfdist_string9 in second_item or surfdist_string10 in second_item:
