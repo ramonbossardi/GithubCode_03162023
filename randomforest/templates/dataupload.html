@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Styling for the blue top bar */
+        .top-bar {
+            background-color: blue;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .fit-image {
+            max-width: 100%; /* Set the maximum width of the image to the container's width */
+            height: auto;   /* Maintain the image's aspect ratio */
+            display: block; /* Ensures proper spacing and alignment */
+            margin: 0 auto; /* Center the image horizontally within its container */
+        }
+
+        .chart-area img.blog-image {
+            max-width: 100%; /* Image will scale down to fit within the container */
+            max-height: 100%;
+        }
+
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            }
+
+            .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            }
+
+            @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+            }
+
+            .options-row {
+                display: flex;
+                justify-content: space-between; /* Adjust as needed for spacing */
+            }
+
+            .cell-line-options,
+
+            .comp-options {
+                flex: 1;
+                margin-right: 10px; /* Adjust for spacing between the fields */
+            }
+
+            .progress-bar {
+                width: 100%;
+                background-color: #262323;
+                height: 20px;
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+
+            .progress {
+                height: 100%;
+                background-color: #80ef0a;
+                border-radius: 5px;
+            }
+
+            .status {
+                background-color: #ffc107; /* Yellow background color */
+                color: #333; /* Dark text color */
+                padding: 10px 20px; /* Add padding for better spacing */
+                border-radius: 5px; /* Rounded corners */
+                text-align: center; /* Center-align text */
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+                font-size: 18px; /* Adjust the font size */
+                }
+
+                .status p {
+                margin: 0; /* Remove default paragraph margin */
+                }
+
+                /* Add padding to the .content container */
+                .content {
+                padding: 20px; /* Adjust the padding value to your preference */
+                }
+
+                .card {
+                padding: 20px; /* Adjust the padding value to your preference */
+                }
+
+                .equal-height-cards {
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+
+                .equal-height-cards .col-3,
+                .equal-height-cards .col-6 {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .equal-height-cards .card {
+                    flex: 1;
+                }
+
+                  .top-bar {
+                display: flex;
+                align-items: center; /* Vertically center content */
+                justify-content: space-between; /* Distribute content evenly across the bar */
+                background-color: blue; /* Set your desired background color */
+                padding: 10px; /* Add padding for spacing */
+                color: white; /* Set text color */
+            }
+
+            .left-button {
+                margin-right: 10px; /* Add margin to the right of the left button */
+            }
+
+            .right-button {
+                margin-left: 10px; /* Add margin to the left of the right button */
+            }
+
+            .center-title {
+                flex-grow: 1; /* Allow the title to expand and take up available space */
+                text-align: center; /* Center the title text */
+                font-weight: bold; /* Optional: Make the title bold */
+            }
+
+             
+
+
+        
+    </style>
+    <!-- Other head content -->
+    <script>
+        function myFunction() {
+            // Your code here
+            console.log("Button clicked!");
+            // Call any Django views or perform any desired actions
+        }
+        
+        // Attach the function to the button's click event
+        document.getElementById("run").addEventListener("click", myFunction);
+    </script>
+    <script>
+        // Function to show the loading overlay
+        function showLoading() {
+          document.getElementById('loading-overlay').style.display = 'block';
+        }
+      
+        // Function to hide the loading overlay
+        function hideLoading() {
+          document.getElementById('loading-overlay').style.display = 'none';
+        }
+      
+        // Example usage:
+        // Call showLoading() before performing a time-consuming operation (e.g., form submission)
+        // Call hideLoading() when the operation is complete to hide the loading overlay.
+      </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="path_to_bootstrap_js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/dropzone.min.css">
+   
+
+</head>
+<body>
+       <!-- Blue top bar -->
+       <div class="top-bar">
+        <div class="left-button">
+            <a href="{% url 'home_page' %}" class="btn btn-fill btn-warning">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+        <div class="center-title">
+            BarrosoLab ==> OTTCP Classification
+        </div>
+        <div class="right-button">
+         
+            <a href="{% url 'upload_files' %}" class="btn btn-fill btn-warning">
+                Create New Analysis
+            </a>
+        </div>
+    </div>
+    
+
+    <div class="content">
+        <div class="row equal-height-cards">
+            <div class="col-3">
+                <div class="card card-chart">
+                    <div class="card-header ">
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                                
+                                <h2 class="card-title">Upload Zone</h2>
+                                <h5 class="card-category">Upload Files</h5>
+                                <h5 class="card-category">{{randomForest.accuracy}}</h5>
+                                
+                            </div>
+                        
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <div class="left-button">
+                                <a href="{% url 'clear_files' %}" class="btn btn-fill btn-warning">
+                                    <i class="fas fa-clear"></i> Clear Previous Run
+                                </a>
+                            </div>
+                            
+                            <!-- Your form content -->
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button type="submit">Upload</button>
+                                
+                                
+                            </form>
+                           
+                            <canvas id="chartBig1">
+                                  
+                            </canvas>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 90%;"></div>
+                            </div>
+
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 90%;"></div>
+                            </div>
+
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+
+                <div class="card card-chart">
+                    <div class="card-header ">
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                                
+                                <h2 class="card-title">Analysis Parameters</h2>
+                                
+                            </div>
+                         
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            
+                            <!-- Your form content -->
+                                <!-- Your form content -->
+                               <h6>You must Choose at least 3 Cell Line Options</h6>
+                                <form method="post" action="">
+                                    {% csrf_token %}
+                                
+                                    <div class="options-row">
+                                        <div class="cell-line-options">
+                                            {{ analysis_form.cell_line_options.label_tag }}
+                                            {{ analysis_form.cell_line_options }}
+                                         
+                                           
+                                                    
+                                            <button type="submit" class="btn btn-fill btn-primary">Run Analysis</button>
+                                       
+                                            
+                                        </div>
+
+                                
+                                        <div class="comp-options">
+                                            {{ analysis_form.comp_options.label_tag }}
+                                            {{ analysis_form.comp_options }}
+                                        </div>
+
+                                        <div class="param-options">
+                                            {{ analysis_form.param_options.label_tag }}
+                                            {{ analysis_form.param_options }}
+                                        </div>
+                                    </div>
+                                
+                                    <!-- <input type="submit" value="Submit"> -->
+                                    
+                                </form>
+                                
+                            <canvas id="chartBig1">
+                                 
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+
+             <div class="col-3">
+                <div class="card card-chart">
+                    <div class="card-header ">
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                                
+                                <h2 class="card-title">Waiting Deck</h2>
+                                
+                            </div>
+                            <div class="col-sm-6">
+                               
+                           
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            
+                            <p> Once you Run the analysis the model will run in the background. </p>
+                            <p>You may chose to close this browser page as you wish. </p>
+                            <p> You may check back regularly for progress. </p>
+                            <p>  Once The analysis is done you will be alerted via the email provided in submission.</p>
+                            <p>  Once The status shown below is complete, scroll downwards to view the results.</p>
+                            <div class="progress-bar">
+                                <div class="progress" style="width:90%;"></div>
+                            </div>
+
+                   
+                            
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 90%;"></div>
+                            </div>
+
+
+                            
+                            <div class="progress-bar">
+                                <!-- <div class="progress" style="width: {{ 90 }}%;"></div> -->
+                            </div>
+                            
+                            <div class="status">
+                                <p>{{analysis.stage}}!</p>
+                              </div>
+                              
+                            <canvas id="chartBig1">
+                                 
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+     
+
+        <!-- <div class="card">
+            <div class="card-header">    
+                <h1 class="card-category">Histories</h1>
+            </div>
+        </div>   -->
+
+
+        </div>
+
+ 
+
+ 
+
+    <!-- Include Dropzone.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/min/dropzone.min.js"></script>
+
+    <!-- Custom JavaScript to handle folder uploads -->
+    <script>
+        // Attach Dropzone to the form element with the ID "my-awesome-dropzone"
+        Dropzone.options.myAwesomeDropzone = {
+            paramName: "folder",
+            dictDefaultMessage: "Drop files here or click to upload (supports folders)",
+            uploadMultiple: true,
+            acceptedFiles: ".xlsx",
+            init: function() {
+                this.on("sending", function(file, xhr, formData) {
+                    formData.append("csrfmiddlewaretoken", document.getElementsByName("csrfmiddlewaretoken")[0].value);
+                });
+            }
+        };
+    </script>
+</body>
+</html>
